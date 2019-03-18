@@ -49,8 +49,9 @@ public class Life : MonoBehaviour {
         m_deathSound.Play();
         m_damageInvulnerabily = m_damageInvulnerabilyDuration;
         m_collider.enabled = false;
-        if (m_currLifes <= 0) {
-            Time.timeScale = 0f;
-        }
+    }
+    
+    public uint GetLifes() {
+        return m_currLifes;
     }
 }
