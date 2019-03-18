@@ -25,8 +25,8 @@ public class HighScoreManager : MonoBehaviour {
             } else {
                 CreateFile();
             }
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
     
     void CreateFile() {
@@ -37,13 +37,15 @@ public class HighScoreManager : MonoBehaviour {
     }
     
     
-    public bool RegisterScore(uint score) {
+    public bool RegisterScore(uint score, out uint pos) {
         bool isHighScore = false;
+        pos = 0;
         for (uint iScore = 0; iScore < m_maxHighScores; ++iScore) {
             if (score > m_data.m_highScores[iScore]) {
-                for (uint j = iScore + 1; j < m_maxHighScores; ++j) {
+                for (uint j = m_maxHighScores - 1; j > iScore; --j) {
                     m_data.m_highScores[j] = m_data.m_highScores[j - 1];
                 }
+                pos = iScore;
                 m_data.m_highScores[iScore] = score;
                 m_json = JsonUtility.ToJson(m_data);
                 File.WriteAllText(m_dataPath, m_json);
@@ -53,5 +55,9 @@ public class HighScoreManager : MonoBehaviour {
         }
         
         return isHighScore;
+    }
+    
+    public uint[] GetScores() {
+        return m_data.m_highScores;
     }
 }

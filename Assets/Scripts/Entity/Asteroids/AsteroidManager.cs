@@ -17,7 +17,6 @@ public class AsteroidManager : MonoBehaviour {
             Destroy(gameObject);
         } else {
             AsteroidManager.m_instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
     

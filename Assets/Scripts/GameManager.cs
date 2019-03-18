@@ -5,22 +5,31 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     public static GameManager m_instance;
     public uint m_scorePerAsteroid;
+    public NewHighScore m_newHighScore;
     public UnityEvent m_scoreChanged;
     Life m_ship;
     uint m_score = 0;
+    bool m_gameOver;
     
     private void Awake() {
         if (GameManager.m_instance != null) {
             Destroy(gameObject);
         } else {
             GameManager.m_instance = this;
+            m_gameOver = false;
         }
     }
     
-    void Start() {
+    private void Start() {
         m_ship = FindObjectOfType<Life>();
         m_ship.m_damageTaken.AddListener(GameOver);
         AsteroidManager.m_instance.m_anAsteroidWasDestroyed.AddListener(AddScore);
+    }
+    
+    private void Update() {
+        if (m_gameOver && Input.anyKeyDown) {
+            SceneManager.LoadScene("Main Menu");
+        }
     }
     
     public uint GetCurrentScore() {
@@ -34,8 +43,14 @@ public class GameManager : MonoBehaviour {
     
     void GameOver() {
         if (m_ship.GetLifes() <= 0) {
-            HighScoreManager.m_instance.RegisterScore(m_score);
-            SceneManager.LoadScene("Main Menu");
+            m_gameOver = true;
+            uint pos;
+            if (HighScoreManager.m_instance.RegisterScore(m_score, out pos)) {
+                m_newHighScore.SetTextScore(m_score, pos + 1);
+                AsteroidManager.m_instance.enabled = false;
+            } else {
+                SceneManager.LoadScene("Main Menu");
+            }
         }
     }
     

@@ -22,11 +22,13 @@ public class ShipMovement : MonoBehaviour {
     }
     
     private void FixedUpdate() {
+        //TURN
         if (Input.GetAxisRaw("Turn") != 0f) {
             //subtraction because +Z turns left
             m_rb.MoveRotation(m_rb.rotation - m_angularSpeed * Input.GetAxisRaw("Turn")); 
         }
         
+        //TURBO
         Vector2 forward = transform.up;
         float turbo; 
         if (Input.GetButton("Turbo")) {
