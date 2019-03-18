@@ -7,6 +7,7 @@ public class Ovni : MonoBehaviour {
     public float m_shootInterval;
     public int m_maxShotsAtTheSameTime;
     public float m_offsetToEdge = 0.75f;
+    public AudioSource m_shootSound;
     Rigidbody2D m_rb;
     Camera m_camera;
     Vector2 m_right;
@@ -52,6 +53,7 @@ public class Ovni : MonoBehaviour {
                     shot.transform.position = 
                         transform.position + direction * m_offsetToEdge;
                     shot.transform.up = direction;
+                    m_shootSound.Play();
                     break;
                 }
             }

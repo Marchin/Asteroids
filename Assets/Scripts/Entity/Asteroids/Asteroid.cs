@@ -22,7 +22,7 @@ public class Asteroid : MonoBehaviour {
         m_rb.MovePosition(m_rb.position + m_direction * m_speed * Time.fixedDeltaTime); 
     }
     
-    public void Explode() {
+    private void OnCollisionEnter2D(Collision2D collision) {
         for (int i = 0; i < m_asteroidsSpawnOnDestroy; ++i){
             GameObject go = m_astroidTypeOnDestroy?.Request();
             go.transform.position = transform.position;

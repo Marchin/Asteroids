@@ -5,6 +5,7 @@ public class Life : MonoBehaviour {
     public uint m_initialLifes;
     public float m_damageInvulnerabilyDuration;
     public float m_flickInterval;
+    public AudioSource m_deathSound;
     public UnityEvent m_damageTaken;
     SpriteRenderer m_sprite;
     Collider2D m_collider;
@@ -45,6 +46,7 @@ public class Life : MonoBehaviour {
             --m_currLifes;
             m_damageTaken.Invoke();
         }
+        m_deathSound.Play();
         m_damageInvulnerabily = m_damageInvulnerabilyDuration;
         m_collider.enabled = false;
         if (m_currLifes <= 0) {

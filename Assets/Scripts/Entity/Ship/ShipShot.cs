@@ -8,7 +8,6 @@ public class ShipShot : Shot {
     }
     
     protected override void OnCollisionEnter2D(Collision2D collision)  {
-        collision.gameObject.GetComponent<Asteroid>()?.Explode();
         if (collision.gameObject.GetComponent<Ovni>() != null) {
             m_shield.Enable();
             collision.gameObject.SetActive(false);

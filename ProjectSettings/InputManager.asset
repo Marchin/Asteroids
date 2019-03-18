@@ -57,13 +57,13 @@ InputManager:
     m_Name: Vertical
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
+    negativeButton: down
+    positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 0
+    gravity: 3000
     dead: 0
-    sensitivity: 0
+    sensitivity: 3000
     snap: 0
     invert: 0
     type: 0

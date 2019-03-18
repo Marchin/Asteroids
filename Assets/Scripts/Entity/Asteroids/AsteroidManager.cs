@@ -6,6 +6,7 @@ public class AsteroidManager : MonoBehaviour {
     public AsteroidType m_asteroidType;
     public uint m_initCount;
     public uint m_safeDistance;
+    public AudioSource m_explosionSound;
     public UnityEvent m_anAsteroidWasDestroyed;
     Transform m_ship;
     uint m_count;
@@ -51,6 +52,7 @@ public class AsteroidManager : MonoBehaviour {
     public void NotifyDestruction() {
         m_anAsteroidWasDestroyed.Invoke();
         --m_count;
+        m_explosionSound.Play();
         if (m_count <= 0) {
             ++m_initCount;
             SetupLevel();
